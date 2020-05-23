@@ -9,7 +9,6 @@ using Rocket.Unturned.Chat;
 using Rocket.Unturned.Enumerations;
 using Rocket.Unturned.Events;
 using Rocket.Unturned.Player;
-using SDG.Framework.UI.Devkit;
 using SDG.Unturned;
 using Steamworks;
 using System;
