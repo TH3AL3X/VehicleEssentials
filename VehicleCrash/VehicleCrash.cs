@@ -68,7 +68,7 @@ namespace VehicleCrash
                 if (player == null)
                     return;
 
-                Instance.GenerateDamage(player, UnityEngine.Random.Range(1, 2), UnityEngine.Random.value);
+                GenerateDamage(player, UnityEngine.Random.Range(1, 2), UnityEngine.Random.value);
 
                 foreach (var passenger in vehicle.passengers)
                 {
