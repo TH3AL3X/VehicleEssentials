@@ -65,7 +65,7 @@ namespace VehicleCrash
 
                 if (player == null)
                     return;
-
+            
                 GenerateDamage(player, UnityEngine.Random.Range(1, 2), UnityEngine.Random.value);
 
                 foreach (var passenger in vehicle.passengers)
@@ -74,6 +74,7 @@ namespace VehicleCrash
 
                     if (jugador != null && !jugador.GetComponent<PlayerComponent>().niggagetwork)
                         StartCoroutine(crash(jugador));
+                // break; my cucumber idk, for prevent bugs
                 break;
                 }
             }
