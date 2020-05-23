@@ -41,7 +41,7 @@ namespace VehicleCrash
                 return new Rocket.API.Collections.TranslationList
                 {
                     {"warning", "(color=yellow)[Vehicle Essentials](/color)(color=red) {0} need a mechanic SMS him(/color)"},
-                    {"iconwarning", "https://darknessplugins.com/images/21.png"}
+                    {"iconwarning", "https://plugins.darknesscommunity.club/images/21.png"}
                 };
             }
         }
