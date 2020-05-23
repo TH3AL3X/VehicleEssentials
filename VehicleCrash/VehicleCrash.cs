@@ -82,8 +82,7 @@ namespace VehicleCrash
         IEnumerator crash(UnturnedPlayer vehicle)
         {
             EPlayerKill kill;
-            PlayerLife life = vehicle.Player.life;
-            life.askDamage(VehicleCrash.Instance.Configuration.Instance.healthdamage, Vector3.zero, EDeathCause.KILL, ELimb.SPINE, CSteamID.Nil, out kill);
+            vehicle.Player.life.askDamage(VehicleCrash.Instance.Configuration.Instance.healthdamage, Vector3.zero, EDeathCause.KILL, ELimb.SPINE, CSteamID.Nil, out kill);
             vehicle.Player.setPluginWidgetFlag(EPluginWidgetFlags.ForceBlur, VehicleCrash.Instance.Configuration.Instance.nausea);
             yield return new WaitForSeconds(VehicleCrash.Instance.Configuration.Instance.nauseatime);
             vehicle.Player.setPluginWidgetFlag(EPluginWidgetFlags.ForceBlur, false);
