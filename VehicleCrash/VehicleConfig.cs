@@ -27,7 +27,7 @@ namespace VehicleCrash
 
             wheelsdamage = true;
 
-            wheelchancedamage = .45f;
+            wheelchancedamage = .45f; // this means 45% nigga
 
             autowarnmechanic = true;
         }
