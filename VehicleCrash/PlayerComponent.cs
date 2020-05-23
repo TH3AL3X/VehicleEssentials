@@ -34,14 +34,12 @@ namespace VehicleCrash
                 else
                 {
                     EffectManager.askEffectClearByID(14044, Player.CSteamID);
-                    EffectManager.askEffectClearByID(14933, Player.CSteamID);
                     EffectManager.sendUIEffect(14033, 14034, Player.CSteamID, true);
                 }
             }
             else
             {
                 EffectManager.askEffectClearByID(14033, Player.CSteamID);
-                EffectManager.askEffectClearByID(14933, Player.CSteamID);
                 EffectManager.askEffectClearByID(14044, Player.CSteamID);
                 niggagetwork = false;
             }
