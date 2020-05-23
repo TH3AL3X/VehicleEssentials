@@ -57,8 +57,10 @@ namespace VehicleCrash
             }
         }
 
+
         private void OnDamageVehicle(CSteamID instigatorSteamID, InteractableVehicle vehicle, ref ushort pendingTotalDamage, ref bool canRepair, ref bool shouldAllow, EDamageOrigin damageOrigin)
         {
+        // need to do some changes here, with health update, because when u hit a player still working this function, nelson nigger don't want to fix this...
             if (damageOrigin.ToString() == "Vehicle_Collision_Self_Damage")
             {
                 UnturnedPlayer player = UnturnedPlayer.FromCSteamID(instigatorSteamID);
