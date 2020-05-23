@@ -27,8 +27,6 @@ namespace VehicleCrash
     {
         public static VehicleCrash Instance;
 
-        public List<UnturnedPlayer> FixPlayers = new List<UnturnedPlayer>();
-
         protected override void Load()
         {
             Instance = this;
