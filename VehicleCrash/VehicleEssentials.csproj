@@ -39,25 +39,28 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>Lib\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\..\C#\LIBRARIES UPDATED\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>Lib\Assembly-CSharp-firstpass.dll</HintPath>
+      <HintPath>..\..\C#\LIBRARIES UPDATED\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="Rocket.API">
-      <HintPath>Lib\Rocket.API.dll</HintPath>
+      <HintPath>..\..\C#\LIBRARIES UPDATED\Rocket.API.dll</HintPath>
     </Reference>
     <Reference Include="Rocket.Core">
-      <HintPath>Lib\Rocket.Core.dll</HintPath>
+      <HintPath>..\..\C#\LIBRARIES UPDATED\Rocket.Core.dll</HintPath>
     </Reference>
     <Reference Include="Rocket.Unturned">
-      <HintPath>Lib\Rocket.Unturned.dll</HintPath>
+      <HintPath>..\..\C#\LIBRARIES UPDATED\Rocket.Unturned.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>Lib\UnityEngine.dll</HintPath>
+      <HintPath>..\..\C#\LIBRARIES UPDATED\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>Lib\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\..\C#\LIBRARIES UPDATED\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>..\..\C#\LIBRARIES UPDATED\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

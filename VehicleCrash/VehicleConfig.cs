@@ -17,9 +17,13 @@ namespace VehicleCrash
 
         public float wheelchancedamage;
 
+        public ushort ifvehiclehasXhealthStopWork;
+
         public void LoadDefaults()
         {
             nausea = true;
+
+            ifvehiclehasXhealthStopWork = 248;
 
             nauseatime = 10;
 

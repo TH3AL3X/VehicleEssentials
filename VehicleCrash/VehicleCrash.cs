@@ -9,6 +9,7 @@ using Rocket.Unturned.Chat;
 using Rocket.Unturned.Enumerations;
 using Rocket.Unturned.Events;
 using Rocket.Unturned.Player;
+using SDG.Framework.Utilities;
 using SDG.Unturned;
 using Steamworks;
 using System;
@@ -56,28 +57,46 @@ namespace VehicleCrash
                     ChatManager.serverSendMessage(VehicleCrash.Instance.Translate("warning", player.DisplayName).Replace('(', '<').Replace(')', '>'), Color.white, null, null, EChatMode.SAY, VehicleCrash.Instance.Translate("iconwarning", player.DisplayName), true);
             }
         }
-
+        private void BooomFuel(InteractableVehicle veh)
+        {
+            VehicleManager.instance.channel.send("tellVehicleFuel", ESteamCall.ALL,
+                ESteamPacket.UPDATE_UNRELIABLE_BUFFER, veh.instanceID, 0);
+        }
 
         private void OnDamageVehicle(CSteamID instigatorSteamID, InteractableVehicle vehicle, ref ushort pendingTotalDamage, ref bool canRepair, ref bool shouldAllow, EDamageOrigin damageOrigin)
         {
-        // need to do some changes here, with health update, because when u hit a player still working this function, nelson nigger don't want to fix this...
+            UnturnedPlayer player = UnturnedPlayer.FromCSteamID(instigatorSteamID);
+
+            // uff zombie detector and player -_-
+            if (pendingTotalDamage <= 2)
+                return;
+
+            if(player == null)
+                return;
+
+            // need to do some changes here, with health update, because when u hit a player still working this function, nelson nigger don't want to fix this...
             if (damageOrigin.ToString() == "Vehicle_Collision_Self_Damage")
             {
-                UnturnedPlayer player = UnturnedPlayer.FromCSteamID(instigatorSteamID);
-
-                if (player == null)
-                    return;
-            
-                GenerateDamage(player, UnityEngine.Random.Range(1, 2), UnityEngine.Random.value);
-
-                foreach (var passenger in vehicle.passengers)
+                if (player.CurrentVehicle.asset.engine == EEngine.CAR)
                 {
-                    UnturnedPlayer jugador = UnturnedPlayer.FromSteamPlayer(passenger.player);
+                    if (player.CurrentVehicle.health < VehicleCrash.Instance.Configuration.Instance.ifvehiclehasXhealthStopWork)
+                    {
+                        BooomFuel(player.CurrentVehicle);
+                    }
+                    else
+                    {
+                        GenerateDamage(player, UnityEngine.Random.Range(1, 2), UnityEngine.Random.value);
 
-                    if (jugador != null && !jugador.GetComponent<PlayerComponent>().niggagetwork)
-                        StartCoroutine(crash(jugador));
-                // break; my cucumber idk, for prevent bugs
-                break;
+                        foreach (var passenger in vehicle.passengers)
+                        {
+                            UnturnedPlayer jugador = UnturnedPlayer.FromSteamPlayer(passenger.player);
+
+                            if (jugador != null && !jugador.GetComponent<PlayerComponent>().niggagetwork)
+                                StartCoroutine(crash(jugador));
+                            // break; my cucumber idk, for prevent bugs
+                            break;
+                        }
+                    }
                 }
             }
         }
