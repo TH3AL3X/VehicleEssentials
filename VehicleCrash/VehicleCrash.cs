@@ -33,6 +33,7 @@ namespace VehicleCrash
             Instance = this;
 
             VehicleManager.onDamageVehicleRequested += OnDamageVehicle;
+            VehicleManager.onEnterVehicleRequested += onEnterVehicleRequested;
         }
 
         public override Rocket.API.Collections.TranslationList DefaultTranslations
@@ -46,8 +47,18 @@ namespace VehicleCrash
                 };
             }
         }
-
-        private void GenerateDamage(UnturnedPlayer player, int wheels, float random)
+        private void onEnterVehicleRequested(Player player, InteractableVehicle vehicle, ref bool shouldAllow)
+        {
+            if (vehicle.health < VehicleCrash.Instance.Configuration.Instance.ifvehiclehasXhealthStopWork)
+            {
+                shouldAllow = false;
+            }
+            else
+            {
+                shouldAllow = true;
+            }
+        }
+        private void tire_Damage(UnturnedPlayer player, int wheels, float random)
         {
             if (random < VehicleCrash.Instance.Configuration.Instance.wheelchancedamage && VehicleCrash.Instance.Configuration.Instance.wheelsdamage)
             {
@@ -57,10 +68,12 @@ namespace VehicleCrash
                     ChatManager.serverSendMessage(VehicleCrash.Instance.Translate("warning", player.DisplayName).Replace('(', '<').Replace(')', '>'), Color.white, null, null, EChatMode.SAY, VehicleCrash.Instance.Translate("iconwarning", player.DisplayName), true);
             }
         }
-        private void BooomFuel(InteractableVehicle veh)
+        private void burn_Fuel(InteractableVehicle veh)
         {
-            VehicleManager.instance.channel.send("tellVehicleFuel", ESteamCall.ALL,
-                ESteamPacket.UPDATE_UNRELIABLE_BUFFER, veh.instanceID, 0);
+            if (VehicleCrash.Instance.Configuration.Instance.burnfuelifvehiclestopworking)
+            {
+                VehicleManager.instance.channel.send("tellVehicleFuel", ESteamCall.ALL, ESteamPacket.UPDATE_UNRELIABLE_BUFFER, veh.instanceID, VehicleCrash.Instance.Configuration.Instance.burnfueldamageifvehiclestopworking);
+            }
         }
 
         private void OnDamageVehicle(CSteamID instigatorSteamID, InteractableVehicle vehicle, ref ushort pendingTotalDamage, ref bool canRepair, ref bool shouldAllow, EDamageOrigin damageOrigin)
@@ -71,7 +84,7 @@ namespace VehicleCrash
             if (pendingTotalDamage <= 2)
                 return;
 
-            if(player == null)
+            if (player == null)
                 return;
 
             // need to do some changes here, with health update, because when u hit a player still working this function, nelson nigger don't want to fix this...
@@ -81,11 +94,16 @@ namespace VehicleCrash
                 {
                     if (player.CurrentVehicle.health < VehicleCrash.Instance.Configuration.Instance.ifvehiclehasXhealthStopWork)
                     {
-                        BooomFuel(player.CurrentVehicle);
+                        burn_Fuel(player.CurrentVehicle);
+
+                        vehicle.forceRemoveAllPlayers();
+
+                        if (VehicleCrash.Instance.Configuration.Instance.autowarnmechanic)
+                            ChatManager.serverSendMessage(VehicleCrash.Instance.Translate("warning", player.DisplayName).Replace('(', '<').Replace(')', '>'), Color.white, null, null, EChatMode.SAY, VehicleCrash.Instance.Translate("iconwarning", player.DisplayName), true);
                     }
                     else
                     {
-                        GenerateDamage(player, UnityEngine.Random.Range(1, 2), UnityEngine.Random.value);
+                        tire_Damage(player, UnityEngine.Random.Range(1, 2), UnityEngine.Random.value);
 
                         foreach (var passenger in vehicle.passengers)
                         {
@@ -111,11 +129,12 @@ namespace VehicleCrash
             vehicle.Player.setPluginWidgetFlag(EPluginWidgetFlags.ForceBlur, false);
             vehicle.Player.setPluginWidgetFlag(EPluginWidgetFlags.Modal, false);
         }
-        
+
 
         protected override void Unload()
         {
             VehicleManager.onDamageVehicleRequested -= OnDamageVehicle;
+            VehicleManager.onEnterVehicleRequested -= onEnterVehicleRequested;
         }
     }
 }
