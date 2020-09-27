@@ -13,6 +13,9 @@ Workshop requirements: [Belt UI required](https://steamcommunity.com/sharedfiles
 * wheelsdamage = <true/false> | tires can break per crash ( Once the vehicle is impacted can get tires damaged )
 * wheelchancedamage = <default .45f> | the chance of breaking the wheels of the vehicle
 * autowarnmechanic = <true/false> | alert a mechanic true
+* ifvehiclehasXhealthStopWork = 248 | stop work vehicle after X hp, 248 means 18%
+* burnfuelifvehiclestopworking = <true/false> | burn fuel if the vehicle stop working after X (ifvehiclehasXhealthStopWork) %
+* burnfueldamageifvehiclestopworking = <default 50> | burn X fuel
 
 ## Translations
 
